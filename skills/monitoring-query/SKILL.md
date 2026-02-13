@@ -8,6 +8,7 @@ Analyze resource utilization and performance trends by fetching raw or aggregate
 
 ## Inputs
 
+- `project` (optional): The Google Cloud project ID to query metrics from.
 - `metric_type` (required): The metric type to query (e.g., `compute.googleapis.com/instance/cpu/utilization`).
 - `filter` (optional): Additional filters for the query (e.g., `resource.labels.instance_id="12345"`).
 - `start_time` (optional): The start of the time interval (RFC3339). Defaults to 1 hour ago.
@@ -16,7 +17,7 @@ Analyze resource utilization and performance trends by fetching raw or aggregate
 
 ## Behavior
 
-1. Retrieve the active project ID using `gcloud config get-value project`.
+1. Identify the target project ID (referred to as `[PROJECT_ID]`). If `project` is provided as an input, use it. Otherwise, retrieve the active project ID using `gcloud config get-value project`.
 2. Obtain an authentication token using `gcloud auth print-access-token`.
 3. Construct the filter string: `metric.type="[METRIC_TYPE]"` plus any additional filters.
 4. Call the Monitoring API via `curl`:
