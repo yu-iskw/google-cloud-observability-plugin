@@ -1,4 +1,18 @@
 {
   "version": "1",
-  "hooks": []
+  "hooks": [
+    {
+      "type": "SessionStart",
+      "script": "hooks/on-agent-start.sh"
+    },
+    {
+      "type": "SubagentStart",
+      "script": "hooks/subagent-safety-injector.sh"
+    },
+    {
+      "type": "PreToolUse",
+      "matcher": "Bash",
+      "script": "hooks/gcloud-validator.sh"
+    }
+  ]
 }

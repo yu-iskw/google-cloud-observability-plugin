@@ -1,78 +1,110 @@
-# Claude Plugin Template
+# Google Cloud Observability Plugin for Claude Code
 
-Template repository for bootstrapping a Claude Code plugin with:
+A comprehensive plugin for [Claude Code](https://code.claude.com) that provides deep integration with Google Cloud Platform's observability stack. It enables Claude to safely investigate incidents, analyze metrics, and triage errors using specialized agents.
 
-- plugin manifest (`.claude-plugin/plugin.json`)
-- skills (`skills/**/SKILL.md`)
-- agents (`agents/*.md`)
-- hooks (`hooks/hooks.json`)
-- quality checks (`trunk` + GitHub Actions)
-- integration smoke tests (`integration_tests/`)
+## 🚀 Capabilities
 
-## Quickstart
+This plugin introduces a squad of specialized agents to handle different aspects of cloud observability:
 
-1. Create a new repository from this template.
-2. Update `.claude-plugin/plugin.json` (`name`, `version`, `description`, `author`, `repository`).
-3. Replace sample components with your own:
-   - `skills/hello-world/SKILL.md`
-   - `agents/say-hello-agent.md`
-   - `hooks/hooks.json`
-4. Run local checks:
-   - `make lint`
-   - `make test-integration-docker`
+### 🤖 **Cloud Pulse Orchestrator** (`/cloud-pulse-orchestrator`)
 
-## Repository Layout
+**The Mission Commander.**
 
-```text
-.claude-plugin/
-  plugin.json                    # Claude plugin metadata
-agents/
-  say-hello-agent.md             # Example agent
-commands/
-  .gitkeep                       # Optional command definitions
-hooks/
-  hooks.json                     # Hook config
-integration_tests/
-  Dockerfile                     # Smoke test image
-  run.sh                         # Orchestrates integration scripts
-  validate-manifest.sh
-  test-plugin-loading.sh
-  test-component-discovery.sh
-skills/
-  hello-world/
-    SKILL.md                     # Example skill
-.github/workflows/
-  integration_tests.yml          # Plugin smoke tests
-  trunk_check.yml                # Lint checks
-  trunk_upgrade.yml              # Scheduled Trunk upgrades
-```
+- Acts as the primary interface for complex investigations.
+- Coordinates the specialists (Logs, Metrics, Errors) to build a holistic view of system health.
+- **Use for:** "Why is the checkout service failing?", "Investigate the latency spike at 10 AM."
 
-## Local Development
+### 📜 **Log Explorer** (`/log-explorer`)
 
-- `make format`: format files with Trunk
-- `make lint`: run all linters via Trunk
-- `make test-integration-docker`: run integration tests in Docker
+**The Forensic Investigator.**
 
-You can also run integration tests directly:
+- Deep-dives into Cloud Logging.
+- Traces request lifecycles and finds root causes in text-based signals.
+- **Use for:** "Find the stack trace for request ID X", "Show me recent errors in the payment-service."
 
-- `./integration_tests/run.sh`
-- `./integration_tests/run.sh --manifest-only`
-- `./integration_tests/run.sh --verbose`
+### 📈 **Metric Analyst** (`/metric-analyst`)
 
-## CI
+**The Data Scientist.**
 
-GitHub Actions includes:
+- Analyzes Cloud Monitoring metrics and dashboards.
+- Identifies resource saturation, performance trends, and anomalies.
+- **Use for:** "Is the CPU usage high?", "Compare latency today vs. yesterday."
 
-- `.github/workflows/trunk_check.yml`: lint and static checks
-- `.github/workflows/integration_tests.yml`: manifest validation and plugin loading smoke tests
-- `.github/workflows/trunk_upgrade.yml`: weekly Trunk dependency updates
+### 🛡️ **Error Guardian** (`/error-guardian`)
 
-## Release
+**The Triage Nurse.**
 
-1. Update `.claude-plugin/plugin.json` version.
-2. Tag and publish a release.
-3. Share your repository as the plugin entry point/template.
+- Monitors Cloud Error Reporting.
+- Identifies top crashing groups, new anomalies, and impact scope.
+- **Use for:** "What are the top errors right now?", "Did the last deployment introduce new crashes?"
 
-## License
+## 🛠️ Prerequisites
 
-Apache License 2.0. See `LICENSE`.
+Before using this plugin, ensure you have the following tools installed and configured:
+
+1. **Google Cloud SDK (`gcloud`)**
+   - Install instructions: [https://cloud.google.com/sdk/docs/install](https://cloud.google.com/sdk/docs/install)
+   - Verify installation: `gcloud --version`
+
+2. **Authentication**
+   - The plugin uses your local `gcloud` credentials.
+   - Login: `gcloud auth login`
+   - (Optional) Application Default Credentials: `gcloud auth application-default login`
+
+3. **Active Project**
+   - Set your target project: `gcloud config set project YOUR_PROJECT_ID`
+
+## 📦 Installation
+
+### From Source (Local Development)
+
+1. **Clone the repository**:
+
+   ```bash
+   git clone https://github.com/your-username/google-cloud-observability-plugin.git
+   cd google-cloud-observability-plugin
+   ```
+
+2. **Run Claude Code with the plugin directory**:
+
+   ```bash
+   claude --plugin-dir .
+   ```
+
+3. **Verify Installation**:
+   In Claude Code, type `/help` and check for the agents listed above.
+
+## 🛡️ Safety & Security
+
+This plugin is designed with **Safety First** principles:
+
+- **Read-Only by Default**: The agents are optimized for _investigation_, not _modification_. They do not have permissions to delete resources or change configurations.
+- **Scoped Access**: All `gcloud` commands are validated by a strict hook (`hooks/gcloud-validator.sh`) that enforces:
+  - `--format=json` for reliable parsing.
+  - `--limit=N` to prevent massive data dumps.
+  - Project isolation rules.
+- **Human in the Loop**: Any potentially destructive or ambiguous operation will prompt for user confirmation.
+
+## 🧩 Architecture
+
+The plugin uses a **Squad-based Agent Architecture**:
+
+- **Agents**: High-level personas (defined in `agents/`) that reason about the data.
+- **Skills**: Atomic tools (defined in `skills/`) that wrap specific `gcloud` CLI commands (e.g., `logging-read`, `monitoring-query`).
+- **Hooks**: Safety middleware (defined in `hooks/`) that intercepts and validates tool usage before execution.
+
+## 🤝 Contributing
+
+Contributions are welcome! Please ensure:
+
+1. New `gcloud` commands are added as **Skills**.
+2. Safety rules are updated in `rules/gcloud-safety.md`.
+3. Run `make test` (if available) to verify changes.
+
+## 📄 License
+
+This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
+
+---
+
+_Built for the [Claude Code](https://code.claude.com) ecosystem._
