@@ -15,8 +15,8 @@ Identify the most frequent and impactful errors in a project.
 
 ## Behavior
 
-1.  Execute `gcloud beta error-reporting groups list --service=[SERVICE] --limit=[LIMIT] --sort-by=[ORDER_BY] --time-range=[TIME_RANGE] --format=json`.
-2.  If `order_by` is not provided, defaults to `-count` to show most frequent errors first.
+1. Execute `gcloud beta error-reporting groups list --service=[SERVICE] --limit=[LIMIT] --sort-by=[ORDER_BY] --time-range=[TIME_RANGE] --format=json`.
+2. If `order_by` is not provided, defaults to `-count` to show most frequent errors first.
 
 ## Output
 

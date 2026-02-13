@@ -16,15 +16,17 @@ Analyze resource utilization and performance trends by fetching raw or aggregate
 
 ## Behavior
 
-1.  Retrieve the active project ID using `gcloud config get-value project`.
-2.  Obtain an authentication token using `gcloud auth print-access-token`.
-3.  Construct the filter string: `metric.type="[METRIC_TYPE]"` plus any additional filters.
-4.  Call the Monitoring API via `curl`:
-    ```bash
-    curl -H "Authorization: Bearer $(gcloud auth print-access-token)" \
-      "https://monitoring.googleapis.com/v3/projects/[PROJECT_ID]/timeSeries?filter=[FILTER]&interval.startTime=[START_TIME]&interval.endTime=[END_TIME]&pageSize=[PAGE_SIZE]"
-    ```
-5.  If `start_time` or `end_time` are not provided, calculate them relative to current UTC time.
+1. Retrieve the active project ID using `gcloud config get-value project`.
+2. Obtain an authentication token using `gcloud auth print-access-token`.
+3. Construct the filter string: `metric.type="[METRIC_TYPE]"` plus any additional filters.
+4. Call the Monitoring API via `curl`:
+
+   ```bash
+   curl -H "Authorization: Bearer $(gcloud auth print-access-token)" \
+     "https://monitoring.googleapis.com/v3/projects/[PROJECT_ID]/timeSeries?filter=[FILTER]&interval.startTime=[START_TIME]&interval.endTime=[END_TIME]&pageSize=[PAGE_SIZE]"
+   ```
+
+5. If `start_time` or `end_time` are not provided, calculate them relative to current UTC time.
 
 ## Output
 

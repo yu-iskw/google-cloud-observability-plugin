@@ -13,8 +13,8 @@ Discover available metrics to query for performance and health analysis.
 
 ## Behavior
 
-1.  Construct the filter string. If both filters are provided, combine them with `AND`.
-2.  Execute `gcloud monitoring metric-descriptors list --filter="[FILTER]" --format=json`.
+1. Construct the filter string. If both filters are provided, combine them with `AND`.
+2. Execute `gcloud monitoring metric-descriptors list --filter="[FILTER]" --format=json`.
 
 ## Output
 

@@ -15,7 +15,7 @@ Retrieve detailed error events, including stack traces and service context, for 
 
 ## Behavior
 
-1.  Execute `gcloud beta error-reporting events list --group-id=[GROUP_ID] --service=[SERVICE] --limit=[LIMIT] --time-range=[TIME_RANGE] --format=json`.
+1. Execute `gcloud beta error-reporting events list --group-id=[GROUP_ID] --service=[SERVICE] --limit=[LIMIT] --time-range=[TIME_RANGE] --format=json`.
 
 ## Output
 

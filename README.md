@@ -4,14 +4,14 @@ A comprehensive plugin for [Claude Code](https://code.claude.com) that provides 
 
 ## 🚀 Capabilities
 
-This plugin introduces a squad of specialized agents to handle different aspects of cloud observability:
+This plugin introduces a squad of specialized agents to handle different aspects of cloud observability. Each agent is accessible via a slash command.
 
 ### 🤖 **Cloud Pulse Orchestrator** (`/cloud-pulse-orchestrator`)
 
 **The Mission Commander.**
 
 - Acts as the primary interface for complex investigations.
-- Coordinates the specialists (Logs, Metrics, Errors) to build a holistic view of system health.
+- Coordinates specialists (Logs, Metrics, Errors) to build a holistic view of system health.
 - **Use for:** "Why is the checkout service failing?", "Investigate the latency spike at 10 AM."
 
 ### 📜 **Log Explorer** (`/log-explorer`)
@@ -38,52 +38,78 @@ This plugin introduces a squad of specialized agents to handle different aspects
 - Identifies top crashing groups, new anomalies, and impact scope.
 - **Use for:** "What are the top errors right now?", "Did the last deployment introduce new crashes?"
 
+### 👋 **Say Hello Agent** (`/say-hello-agent`)
+
+**The Connectivity Validator.**
+
+- Simple agent to verify your GCP project context and authentication.
+- **Use for:** "Say hello to my project."
+
 ## 🛠️ Prerequisites
 
 Before using this plugin, ensure you have the following tools installed and configured:
 
-1. **Google Cloud SDK (`gcloud`)**
-   - Install instructions: [https://cloud.google.com/sdk/docs/install](https://cloud.google.com/sdk/docs/install)
-   - Verify installation: `gcloud --version`
+1. **Claude Code** (Version 1.0.33 or later)
+   - Install: `npm install -g @anthropic-ai/claude-code`
 
-2. **Authentication**
+2. **Google Cloud SDK (`gcloud`)**
+   - Install: [https://cloud.google.com/sdk/docs/install](https://cloud.google.com/sdk/docs/install)
+   - Verify: `gcloud --version`
+
+3. **Authentication**
    - The plugin uses your local `gcloud` credentials.
    - Login: `gcloud auth login`
    - (Optional) Application Default Credentials: `gcloud auth application-default login`
 
-3. **Active Project**
+4. **Active Project**
    - Set your target project: `gcloud config set project YOUR_PROJECT_ID`
 
-## 📦 Installation
+## 📦 Installation & Development
 
-### From Source (Local Development)
+### Local Development (Recommended for testing)
 
 1. **Clone the repository**:
 
    ```bash
-   git clone https://github.com/your-username/google-cloud-observability-plugin.git
+   git clone https://github.com/yu-iskw/google-cloud-observability-plugin.git
    cd google-cloud-observability-plugin
    ```
 
-2. **Run Claude Code with the plugin directory**:
+2. **Run Claude Code with the plugin**:
 
    ```bash
    claude --plugin-dir .
    ```
 
-3. **Verify Installation**:
-   In Claude Code, type `/help` and check for the agents listed above.
+   _This starts Claude Code with the local plugin directory loaded._
+
+3. **Validate the Plugin**:
+
+   ```bash
+   claude plugin validate .
+   ```
+
+   _Ensures the manifest and structure follow the Claude Code plugin specification._
+
+### Marketplace Installation (Coming Soon)
+
+Once published, you can install the plugin via:
+
+```bash
+/plugin install google-cloud-observability
+```
 
 ## 🛡️ Safety & Security
 
 This plugin is designed with **Safety First** principles:
 
-- **Read-Only by Default**: The agents are optimized for _investigation_, not _modification_. They do not have permissions to delete resources or change configurations.
+- **Read-Only by Default**: Agents are optimized for _investigation_, not _modification_. They do not have permissions to delete resources or change configurations.
 - **Scoped Access**: All `gcloud` commands are validated by a strict hook (`hooks/gcloud-validator.sh`) that enforces:
   - `--format=json` for reliable parsing.
   - `--limit=N` to prevent massive data dumps.
   - Project isolation rules.
 - **Human in the Loop**: Any potentially destructive or ambiguous operation will prompt for user confirmation.
+- **Safety Rules**: Detailed guidelines are maintained in [rules/gcloud-safety.md](rules/gcloud-safety.md).
 
 ## 🧩 Architecture
 
@@ -95,11 +121,7 @@ The plugin uses a **Squad-based Agent Architecture**:
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please ensure:
-
-1. New `gcloud` commands are added as **Skills**.
-2. Safety rules are updated in `rules/gcloud-safety.md`.
-3. Run `make test` (if available) to verify changes.
+Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
 ## 📄 License
 

@@ -13,9 +13,9 @@ Discovery of which logs are available to help refine search filters.
 
 ## Behavior
 
-1.  Execute `gcloud logging logs list --format=json`.
-2.  If `bucket` or `view` is provided, append the respective flags.
-3.  Optionally filter for specific log types if needed by the caller.
+1. Execute `gcloud logging logs list --format=json`.
+2. If `bucket` or `view` is provided, append the respective flags.
+3. Optionally filter for specific log types if needed by the caller.
 
 ## Output
 

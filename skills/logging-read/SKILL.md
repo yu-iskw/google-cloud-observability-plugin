@@ -17,11 +17,11 @@ Retrieve log entries based on a filter. This is the primary tool for investigati
 
 ## Behavior
 
-1.  Validate that `limit` does not exceed 1000.
-2.  Construct the command with provided flags: `gcloud logging read "[FILTER]" --limit=[LIMIT] --order=[ORDER] --format=json`.
-3.  Append `--freshness=[FRESHNESS]` if provided.
-4.  Append `--bucket=[BUCKET]` and `--view=[VIEW]` if provided.
-5.  Ensure the command is scoped to the active project.
+1. Validate that `limit` does not exceed 1000.
+2. Construct the command with provided flags: `gcloud logging read "[FILTER]" --limit=[LIMIT] --order=[ORDER] --format=json`.
+3. Append `--freshness=[FRESHNESS]` if provided.
+4. Append `--bucket=[BUCKET]` and `--view=[VIEW]` if provided.
+5. Ensure the command is scoped to the active project.
 
 ## Output
 

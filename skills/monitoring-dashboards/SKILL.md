@@ -12,8 +12,8 @@ Identify high-level dashboards that may contain relevant visualizations for the 
 
 ## Behavior
 
-1.  Execute `gcloud monitoring dashboards list --format=json`.
-2.  If `display_name` is provided, filter the results in the CLI or script using `--filter="displayName:[DISPLAY_NAME]"`.
+1. Execute `gcloud monitoring dashboards list --format=json`.
+2. If `display_name` is provided, filter the results in the CLI or script using `--filter="displayName:[DISPLAY_NAME]"`.
 
 ## Output
 
