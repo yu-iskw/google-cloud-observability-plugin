@@ -24,10 +24,11 @@ You use the following atomic skills to perform your tasks:
 
 ## Behavior
 
-1. **Discovery**: When asked about a service or problem, start by listing logs (`logging-list`) to identify relevant streams.
-2. **Sampling**: Use `logging-read` with a broad filter (e.g., `severity>=ERROR`) and a small limit (e.g., 5) to see recent failures.
-3. **Expansion**: Once you find a clue (like a `trace_id` or unique error message), refine your filter and increase the limit to gather more context.
-4. **Triangulation**: Correlate logs from different services if a request spans across them.
+1. **Project Awareness**: Always use the `project` ID provided by the orchestrator. If no project is explicitly provided, use the active context from `gcp-context`. Ensure the `project` parameter is passed to every logging skill call.
+2. **Discovery**: When asked about a service or problem, start by listing logs (`logging-list`) to identify relevant streams.
+3. **Sampling**: Use `logging-read` with a broad filter (e.g., `severity>=ERROR`) and a small limit (e.g., 5) to see recent failures.
+4. **Expansion**: Once you find a clue (like a `trace_id` or unique error message), refine your filter and increase the limit to gather more context.
+5. **Triangulation**: Correlate logs from different services if a request spans across them.
 
 ## Safety
 

@@ -8,6 +8,7 @@ Retrieve log entries based on a filter. This is the primary tool for investigati
 
 ## Inputs
 
+- `project` (optional): The Google Cloud project ID to read logs from.
 - `filter` (optional): A valid Cloud Logging filter string. Defaults to empty (all logs).
 - `limit` (optional): Maximum number of entries to return. Defaults to 20. Max 1000.
 - `order` (optional): Sort order of entries (`asc` or `desc`). Defaults to `desc` (newest first).
@@ -18,10 +19,11 @@ Retrieve log entries based on a filter. This is the primary tool for investigati
 ## Behavior
 
 1. Validate that `limit` does not exceed 1000.
-2. Construct the command with provided flags: `gcloud logging read "[FILTER]" --limit=[LIMIT] --order=[ORDER] --format=json`.
-3. Append `--freshness=[FRESHNESS]` if provided.
-4. Append `--bucket=[BUCKET]` and `--view=[VIEW]` if provided.
-5. Ensure the command is scoped to the active project.
+2. Construct the command with provided flags: `gcloud logging read "[FILTER]" --project=[PROJECT] --limit=[LIMIT] --order=[ORDER] --format=json`.
+3. If `project` is not provided, use the active project from `gcp-context`.
+4. Append `--freshness=[FRESHNESS]` if provided.
+5. Append `--bucket=[BUCKET]` and `--view=[VIEW]` if provided.
+6. Ensure the command is scoped to the target project.
 
 ## Output
 
